@@ -76,12 +76,10 @@ let unstablePkgs = import <unstable> {}; in
     tmux = {
       clock24 = true;
       sensibleOnTop = true;
+      baseIndex = 1;
+      escapeTime = 0;
       enable = true;
-      extraConfig = ''
-          unbind C-b
-          set -g prefix `
-          bind ` send-prefix
-        '';
+      extraConfig = builtins.readFile ( ./tmux.conf );
     };
 
 
