@@ -12,12 +12,17 @@ let unstablePkgs = import <unstable> {}; in
 
     direnv = {
       enable = true;
-      enableNixDirenvIntegration = true;
+      nix-direnv = {
+        enable = true;
+      };
       enableBashIntegration = true;
     };
 
     bash = {
       enable = true;
+      profileExtra = ''
+        source ~/.opam-init
+      '';
     };
 
     firefox = {
@@ -37,6 +42,7 @@ let unstablePkgs = import <unstable> {}; in
       withNodeJs = true;
       withPython3 = true;
 
+      package = unstablePkgs.neovim-unwrapped;
       extraConfig = builtins.readFile ( ./init.vim );
 
       plugins = with unstablePkgs.vimPlugins; [
@@ -66,6 +72,9 @@ let unstablePkgs = import <unstable> {}; in
       enable = true;
       userEmail = "scriptdevil@zoho.com";
       userName = "Ashok Gautham Jadatharan";
+      aliases = {
+        last = "log -1 HEAD";
+      };
     };
 
     fzf = {
@@ -87,7 +96,7 @@ let unstablePkgs = import <unstable> {}; in
     alacritty = {
       enable = true;
       settings = {
-        font.normal.family = "Cascadia Code";
+        font.normal.family = "Fira Mono";
         font.size = 10;
         shell.program = "/run/current-system/sw/bin/bash"; 
       };
@@ -107,9 +116,19 @@ let unstablePkgs = import <unstable> {}; in
       python3
       unzip
       pandoc 
+      plantuml
+      feh
+      mupdf
+      openjdk
+      graphviz
       imagemagick
+      tree
+      jq
       xclip
+      fira-mono
+      jetbrains-mono
       cascadia-code
+      noto-fonts
     ];
   };
 }
